@@ -10,8 +10,8 @@ date: 2025-10-31 21:31:20
 ### 💻 技术栈
 
 - 前端：HTML / CSS / JavaScript / Vue / React
-- 后端：Node.js / Python
-- 其他：Git / Docker / Linux
+- 后端：Node.js / Python/ php / java / go / python
+- 其他：Git / Docker / Linux / ai
 
 ### 📝 关于博客
 
@@ -19,8 +19,8 @@ date: 2025-10-31 21:31:20
 
 ### 📫 联系方式
 
-- 邮箱: your@email.com
-- GitHub: https://github.com/yourname
-- 微信: your-wechat
+- 邮箱: runundersun@163.com
+- GitHub: https://github.com/xuzhengqiang
+- 微信: strive_qiang888
 
 > 欢迎交流技术、合作项目！
