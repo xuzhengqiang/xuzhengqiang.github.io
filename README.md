@@ -39,10 +39,17 @@ npm run clean
 ├── _config.stun.yml     # Stun 主题配置文件
 ├── package.json         # 项目依赖配置
 ├── vercel.json          # Vercel 部署配置
+├── .env.example         # 环境变量配置示例
 ├── 部署.md              # 完整部署教程
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml   # GitHub Actions 自动部署配置
+│       ├── deploy.yml       # GitHub Actions 自动部署
+│       └── daily-news.yml   # 每日新闻自动化 ⭐
+├── scripts/             # 自动化脚本 ⭐
+│   ├── fetch_news.py   # 新闻抓取脚本
+│   └── ai_summary.py   # AI 总结脚本
+├── docs/                # 文档 ⭐
+│   └── AUTO_NEWS_GUIDE.md  # 自动化新闻配置指南
 ├── scaffolds/           # 文章模板
 │   ├── post.md         # 文章模板
 │   ├── draft.md        # 草稿模板
@@ -189,6 +196,28 @@ git push
 
 详见 [部署.md](./部署.md) 中的"自定义域名"章节。
 
+## 🤖 自动化功能
+
+### 每日国际新闻自动发布 ⭐ NEW
+
+本项目集成了**自动抓取国际新闻 + AI 总结 + 自动发布**功能：
+
+- ✅ **多源抓取**：BBC、CNN、Reuters、Google News 等主流媒体
+- ✅ **AI 智能总结**：支持通义千问（免费）、OpenAI、DeepSeek
+- ✅ **全自动发布**：每天早上 9 点自动生成并发布文章
+- ✅ **完全免费**：使用免费 RSS + 免费 AI 服务
+- ✅ **零维护**：配置一次，自动运行
+
+**快速开始**：
+
+1. 申请免费 AI API Key（通义千问推荐）
+2. 在 GitHub Secrets 中配置 `QWEN_API_KEY`
+3. 完成！每天自动发布一篇新闻汇总
+
+📖 **详细教程**：[自动化新闻配置指南](./docs/AUTO_NEWS_GUIDE.md)
+
+---
+
 ## 项目改进建议
 
 ### 已完成 ✅
@@ -198,6 +227,7 @@ git push
 - [x] 项目结构说明
 - [x] 写作指南
 - [x] 常见问题解答
+- [x] **每日国际新闻自动化系统** ⭐ NEW
 
 ### 可选增强功能 💡
 - [ ] 添加评论系统（Gitalk / Valine / Waline）

@@ -1,0 +1,82 @@
+name: Daily News Summary
+
+on:
+  # 每天早上 UTC 1:00 运行 (北京时间 9:00)
+  schedule:
+    - cron: '0 1 * * *'
+  # 也可以手动触发
+  workflow_dispatch:
+
+jobs:
+  generate-news:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Setup Node.js 📦
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Setup Python 🐍
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install Dependencies 🔧
+      run: |
+        npm ci
+        pip install feedparser requests openai dashscope python-dotenv
+    
+    - name: Fetch RSS News 📰
+      run: python scripts/fetch_news.py
+      env:
+        NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+    
+    - name: AI Summary ✨
+      run: python scripts/ai_summary.py
+      env:
+        # 通义千问 API Key (推荐，免费)
+        QWEN_API_KEY: ${{ secrets.QWEN_API_KEY }}
+        # 或者 OpenAI API Key (如果你有的话)
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        # 或者 DeepSeek API Key (便宜)
+        DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        # 选择使用哪个 AI 服务: qwen, openai, deepseek
+        AI_PROVIDER: ${{ secrets.AI_PROVIDER || 'qwen' }}
+    
+    - name: Check if article exists 🔍
+      id: check_article
+      run: |
+        DATE=$(date -u +%Y-%m-%d)
+        if [ -f "source/_posts/${DATE}-daily-international-news.md" ]; then
+          echo "exists=true" >> $GITHUB_OUTPUT
+        else
+          echo "exists=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Commit and Push 📝
+      if: steps.check_article.outputs.exists == 'false'
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+        DATE=$(date -u +%Y-%m-%d)
+        git add source/_posts/${DATE}-daily-international-news.md
+        git commit -m "🤖 Auto: Daily news summary ${DATE}"
+        git push
+    
+    - name: Build Hexo 🏗️
+      run: npm run build
+    
+    - name: Deploy to GitHub Pages 🚀
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        publish_branch: gh-pages
+
