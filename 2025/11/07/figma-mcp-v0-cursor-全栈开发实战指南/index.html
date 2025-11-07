@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.8.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.8.0" type="image/png" sizes="32x32"><meta name="description" content="一文跑通 Figma MCP + v0 + Cursor 全栈工作流：配置、命令、Prompt、代码结构、联调、部署与常见坑，助你从设计到上线 30 分钟交付 MVP。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Figma MCP + v0 + Cursor：全栈开发实战指南（从设计到上线）">
+<meta property="og:url" content="https://xuzhengqiang.github.io/2025/11/07/figma-mcp-v0-cursor-%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="知行合一,善始善终">
+<meta property="og:description" content="一文跑通 Figma MCP + v0 + Cursor 全栈工作流：配置、命令、Prompt、代码结构、联调、部署与常见坑，助你从设计到上线 30 分钟交付 MVP。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-07T04:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-07T14:25:53.916Z">
+<meta property="article:author" content="大先生">
+<meta property="article:tag" content="Figma">
+<meta property="article:tag" content="Figma MCP">
+<meta property="article:tag" content="v0">
+<meta property="article:tag" content="Cursor">
+<meta property="article:tag" content="AI 编程">
+<meta property="article:tag" content="全栈开发">
+<meta name="twitter:card" content="summary"><title>Figma MCP + v0 + Cursor：全栈开发实战指南（从设计到上线） | 知行合一,善始善终</title><link ref="canonical" href="https://xuzhengqiang.github.io/2025/11/07/figma-mcp-v0-cursor-%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.8.0"><link rel="stylesheet" href="css/custom.css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/about/"><span class="header-nav-menu-item__icon"><i class="fas fa-user"></i></span><span class="header-nav-menu-item__text">关于</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Hello Stun</div><div class="header-banner-info__subtitle">An elegant theme for Hexo</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Figma MCP + v0 + Cursor：全栈开发实战指南（从设计到上线）</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-11-07</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-11-07</span></span></div></header><div class="post-body"><blockquote>
+<p>一句话结论：用 Figma MCP 读设计 → v0 生成前端 → Cursor 生成&#x2F;补全后端，配合少量工程化与验证，30 分钟即可完成一个可运行的全栈 MVP。</p>
+</blockquote>
+
+        <h2 id="🔧-整体方案速览"   >
+          <a href="#🔧-整体方案速览" class="heading-link"><i class="fas fa-link"></i></a><a href="#🔧-整体方案速览" class="headerlink" title="🔧 整体方案速览"></a>🔧 整体方案速览</h2>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Figma（设计源）</span><br><span class="line">   │   通过 MCP 暴露结构化设计数据（节点、文本、样式、约束）</span><br><span class="line">   ▼</span><br><span class="line">Cursor（IDE &amp; AI 助手）</span><br><span class="line">   │   读取 Figma 数据，生成/重构后端 &amp; 对接前端 API</span><br><span class="line">   ▼</span><br><span class="line">v0（AI 前端生成器）</span><br><span class="line">   │   从描述/截图/链接生成 React + shadcn/ui 组件与页面</span><br><span class="line">   ▼</span><br><span class="line">你的项目（Next.js / NestJS / Spring Boot / 数据库 / 部署）</span><br></pre></td></tr></table></div></figure>
+
+<p>适用场景：中后台 CRUD、SaaS MVP、企业内部系统、组件库落地与页面装配。</p>
+<hr>
+
+        <h2 id="1-前置准备（10-分钟）"   >
+          <a href="#1-前置准备（10-分钟）" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-前置准备（10-分钟）" class="headerlink" title="1) 前置准备（10 分钟）"></a>1) 前置准备（10 分钟）</h2>
+      <ul>
+<li>账号与工具<ul>
+<li>Figma（获取 Personal Access Token）</li>
+<li>v0（<code>https://v0.dev</code>）</li>
+<li>Cursor（<code>https://cursor.sh</code>）</li>
+</ul>
+</li>
+<li>推荐技术栈（任选一套后端）<ul>
+<li>Node.js：NestJS + TypeORM + PostgreSQL</li>
+<li>Java：Spring Boot 3 + JPA + MySQL</li>
+</ul>
+</li>
+<li>本地环境<ul>
+<li>Node 18+&#x2F;pnpm 或 npm</li>
+<li>JDK 17（如用 Spring）</li>
+<li>Docker（可选，便于本地数据库与一键运行）</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+        <h2 id="2-配置-Figma-MCP（2-分钟）"   >
+          <a href="#2-配置-Figma-MCP（2-分钟）" class="heading-link"><i class="fas fa-link"></i></a><a href="#2-配置-Figma-MCP（2-分钟）" class="headerlink" title="2) 配置 Figma MCP（2 分钟）"></a>2) 配置 Figma MCP（2 分钟）</h2>
+      <p>在 Cursor 设置中新增 MCP Server：</p>
+<figure class="highlight json"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;figma&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npx&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;-y&quot;</span><span class="punctuation">,</span> <span class="string">&quot;@modelcontextprotocol/server-figma&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;FIGMA_PERSONAL_ACCESS_TOKEN&quot;</span><span class="punctuation">:</span> <span class="string">&quot;figd_your_token_here&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></div></figure>
+
+<p>完成后，Cursor 聊天中可调用 Figma 资源：</p>
+<figure class="highlight markdown"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">读取此设计文件并总结页面结构、组件、文案、布局约束：</span><br><span class="line">https://www.figma.com/design/xxxxx/Project?node-id=123-456</span><br></pre></td></tr></table></div></figure>
+
+<p>提示：确保设计中使用组件化、Auto Layout、明确命名（如 <code>Button/Primary</code>、<code>Table/UserList</code>）。</p>
+<hr>
+
+        <h2 id="3-用-v0-生成前端（8-分钟）"   >
+          <a href="#3-用-v0-生成前端（8-分钟）" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-用-v0-生成前端（8-分钟）" class="headerlink" title="3) 用 v0 生成前端（8 分钟）"></a>3) 用 v0 生成前端（8 分钟）</h2>
+      <p>三种常用方式：</p>
+<ol>
+<li>直接描述 Prompt（最通用）</li>
+</ol>
+<figure class="highlight markdown"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">创建一个用户管理页面：</span><br><span class="line">1) 顶部搜索栏：用户名、邮箱、状态（下拉），搜索/重置按钮</span><br><span class="line">2) 表格：ID、用户名、邮箱、手机、状态、创建时间、操作</span><br><span class="line">3) 弹窗表单：新增/编辑用户，含校验</span><br><span class="line">4) 使用 Next.js App Router + shadcn/ui + Tailwind</span><br><span class="line">5) 响应式，移动端优先</span><br></pre></td></tr></table></div></figure>
+
+<ol start="2">
+<li><p>上传 Figma 截图 → 让 v0 识别生成组件</p>
+</li>
+<li><p>粘贴 Figma 链接（Pro）→ 自动解析结构生成代码</p>
+</li>
+</ol>
+<p>生成后在 v0：</p>
+<ul>
+<li>预览与对话式微调样式&#x2F;布局&#x2F;字段</li>
+<li>导出：Copy Code &#x2F; StackBlitz &#x2F; GitHub</li>
+</ul>
+<hr>
+
+        <h2 id="4-用-Cursor-生成-补全后端（10-分钟）"   >
+          <a href="#4-用-Cursor-生成-补全后端（10-分钟）" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-用-Cursor-生成-补全后端（10-分钟）" class="headerlink" title="4) 用 Cursor 生成&#x2F;补全后端（10 分钟）"></a>4) 用 Cursor 生成&#x2F;补全后端（10 分钟）</h2>
+      <p>这里给出两种后端路线（任选其一）。</p>
+
+        <h3 id="A-NestJS-版本（Node）"   >
+          <a href="#A-NestJS-版本（Node）" class="heading-link"><i class="fas fa-link"></i></a><a href="#A-NestJS-版本（Node）" class="headerlink" title="A. NestJS 版本（Node）"></a>A. NestJS 版本（Node）</h3>
+      <p>在 Cursor 中提供上下文：</p>
+<figure class="highlight markdown"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">目标：为 v0 生成的用户管理前端提供 REST API（NestJS）。</span><br><span class="line">请基于以下设计与前端代码：</span><br><span class="line">1) 读取 Figma（链接见上）获取字段与约束</span><br><span class="line">2) 前端调用：GET /api/users、POST /api/users、PUT /api/users/:id、DELETE /api/users/:id</span><br><span class="line">3) 生成 NestJS 模块：Entity/DTO/Service/Controller/Validation/分页查询</span><br><span class="line">4) TypeORM + PostgreSQL，提供 docker-compose.yml</span><br></pre></td></tr></table></div></figure>
+
+<p>期望 Cursor 输出的关键文件（示例片段）：</p>
+<figure class="highlight ts"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/users/entities/user.entity.ts</span></span><br><span class="line"><span class="meta">@Entity</span>(<span class="string">&#x27;users&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserEntity</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>()</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">unique</span>: <span class="literal">true</span>, <span class="attr">length</span>: <span class="number">50</span> &#125;)</span><br><span class="line">  <span class="attr">username</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">length</span>: <span class="number">100</span> &#125;)</span><br><span class="line">  <span class="attr">email</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">length</span>: <span class="number">11</span> &#125;)</span><br><span class="line">  <span class="attr">phone</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">status</span>: <span class="string">&#x27;active&#x27;</span> | <span class="string">&#x27;inactive&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>()</span><br><span class="line">  <span class="attr">createdAt</span>: <span class="title class_">Date</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight ts"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/users/users.controller.ts</span></span><br><span class="line"><span class="meta">@Get</span>()</span><br><span class="line"><span class="title function_">list</span>(<span class="params"><span class="meta">@Query</span>() <span class="attr">query</span>: <span class="title class_">ListUserDto</span></span>) &#123; <span class="comment">/* 支持用户名/邮箱/状态筛选 + 分页 */</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Post</span>()</span><br><span class="line"><span class="title function_">create</span>(<span class="params"><span class="meta">@Body</span>() <span class="attr">dto</span>: <span class="title class_">CreateUserDto</span></span>) &#123; <span class="comment">/* 校验 + 去重 */</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Put</span>(<span class="string">&#x27;:id&#x27;</span>)</span><br><span class="line"><span class="title function_">update</span>(<span class="params"><span class="meta">@Param</span>(<span class="string">&#x27;id&#x27;</span>, ParseIntPipe) <span class="attr">id</span>: <span class="built_in">number</span>, <span class="meta">@Body</span>() <span class="attr">dto</span>: <span class="title class_">UpdateUserDto</span></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Delete</span>(<span class="string">&#x27;:id&#x27;</span>)</span><br><span class="line"><span class="title function_">remove</span>(<span class="params"><span class="meta">@Param</span>(<span class="string">&#x27;id&#x27;</span>, ParseIntPipe) <span class="attr">id</span>: <span class="built_in">number</span></span>) &#123;&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>并生成 <code>docker-compose.yml</code>：</p>
+<figure class="highlight yaml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">postgres:16</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">POSTGRES_USER:</span> <span class="string">app</span></span><br><span class="line">      <span class="attr">POSTGRES_PASSWORD:</span> <span class="string">app</span></span><br><span class="line">      <span class="attr">POSTGRES_DB:</span> <span class="string">app</span></span><br><span class="line">    <span class="attr">ports:</span> [<span class="string">&quot;5432:5432&quot;</span>]</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="B-Spring-Boot-版本（Java）"   >
+          <a href="#B-Spring-Boot-版本（Java）" class="heading-link"><i class="fas fa-link"></i></a><a href="#B-Spring-Boot-版本（Java）" class="headerlink" title="B. Spring Boot 版本（Java）"></a>B. Spring Boot 版本（Java）</h3>
+      <p>在 Cursor 中给出指令：</p>
+<figure class="highlight markdown"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">基于 Figma 设计与 v0 前端代码，生成 Spring Boot 3 + JPA 后端：</span><br><span class="line">1) 实体/DTO/Controller/Service/Repository 分层</span><br><span class="line">2) 分页查询 + 条件过滤（用户名/邮箱/状态）</span><br><span class="line">3) 数据校验、异常处理、事务</span><br><span class="line">4) 密码加密与重复校验</span><br></pre></td></tr></table></div></figure>
+
+<p>Cursor 会生成与前文类似的 <code>Entity/DTO/Controller/Service</code> 结构（可参考本站 2025-11-08 文章）。</p>
+<hr>
+
+        <h2 id="5-前后端联调与验证（5-分钟）"   >
+          <a href="#5-前后端联调与验证（5-分钟）" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-前后端联调与验证（5-分钟）" class="headerlink" title="5) 前后端联调与验证（5 分钟）"></a>5) 前后端联调与验证（5 分钟）</h2>
+      <ol>
+<li>启动后端<ul>
+<li>NestJS：<code>pnpm start:dev</code> 或 <code>npm run start:dev</code></li>
+<li>Spring：<code>./mvnw spring-boot:run</code></li>
+</ul>
+</li>
+<li>启动前端（v0 导出的 Next.js）<ul>
+<li><code>npm install &amp;&amp; npm run dev</code></li>
+</ul>
+</li>
+<li>打开 <code>http://localhost:3000</code> 验证：<ul>
+<li>搜索、分页、创建、编辑、删除</li>
+</ul>
+</li>
+<li>常用检查：<ul>
+<li>网络面板 2xx&#x2F;4xx&#x2F;5xx</li>
+<li>请求&#x2F;响应数据结构与 DTO&#x2F;Entity 一致</li>
+<li>表单校验与后端校验一致</li>
+</ul>
+</li>
+</ol>
+<hr>
+
+        <h2 id="6-常见坑与解决（强烈建议收藏）"   >
+          <a href="#6-常见坑与解决（强烈建议收藏）" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-常见坑与解决（强烈建议收藏）" class="headerlink" title="6) 常见坑与解决（强烈建议收藏）"></a>6) 常见坑与解决（强烈建议收藏）</h2>
+      <ol>
+<li>Figma Token 无权限 → 确认 Token 作用域与文件可访问性</li>
+<li>设计未组件化 → v0&#x2F;AI 难以稳定识别，先抽象 Button&#x2F;Input&#x2F;Table</li>
+<li>命名模糊（“矩形1”）→ 改为业务语义（<code>User/Table</code>、<code>Form/Email</code>）</li>
+<li>前后端字段不一致 → 在 Cursor 中显式声明字段、类型、校验</li>
+<li>列表分页不一致 → 统一约定 <code>total/records/page/size</code></li>
+<li>枚举映射错误 → 统一大小写&#x2F;值域（如 <code>active/inactive</code>）</li>
+<li>表单校验缺失 → 前端 + 后端双校验，给出明确错误消息</li>
+<li>CORS&#x2F;代理问题 → Next.js 开发代理或后端允许开发来源</li>
+<li>时间&#x2F;时区 → 均使用 ISO 字符串或 UTC，前端本地化显示</li>
+<li>代码漂移 → 固化工程模板与 ESLint&#x2F;Prettier&#x2F;格式化钩子</li>
+</ol>
+<hr>
+
+        <h2 id="7-Prompt-模板（拿去即用）"   >
+          <a href="#7-Prompt-模板（拿去即用）" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-Prompt-模板（拿去即用）" class="headerlink" title="7) Prompt 模板（拿去即用）"></a>7) Prompt 模板（拿去即用）</h2>
+      
+        <h3 id="v0-生成页面"   >
+          <a href="#v0-生成页面" class="heading-link"><i class="fas fa-link"></i></a><a href="#v0-生成页面" class="headerlink" title="v0 生成页面"></a>v0 生成页面</h3>
+      <figure class="highlight markdown"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">生成“用户管理”页面：</span><br><span class="line"><span class="bullet">-</span> 顶部搜索栏：用户名、邮箱、状态（下拉），搜索/重置按钮</span><br><span class="line"><span class="bullet">-</span> 表格：ID、用户名、邮箱、手机、状态（彩色徽章）、创建时间、操作</span><br><span class="line"><span class="bullet">-</span> 弹窗表单：新增/编辑，字段校验（同后端 DTO 约束）</span><br><span class="line"><span class="bullet">-</span> Next.js App Router + shadcn/ui + Tailwind + TanStack Table</span><br><span class="line"><span class="bullet">-</span> 移动端适配，断点 lg/md/sm</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="Cursor-Figma-MCP-生成后端（NestJS）"   >
+          <a href="#Cursor-Figma-MCP-生成后端（NestJS）" class="heading-link"><i class="fas fa-link"></i></a><a href="#Cursor-Figma-MCP-生成后端（NestJS）" class="headerlink" title="Cursor + Figma MCP 生成后端（NestJS）"></a>Cursor + Figma MCP 生成后端（NestJS）</h3>
+      <figure class="highlight markdown"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">请读取此 Figma 文件的页面/组件/字段与约束，结合以下前端代码：</span><br><span class="line">[粘贴 v0 生成的代码片段]</span><br><span class="line"></span><br><span class="line">生成 NestJS 模块：</span><br><span class="line"><span class="bullet">-</span> Entity/DTO/Service/Controller/Repository（TypeORM）</span><br><span class="line"><span class="bullet">-</span> REST API：GET/POST/PUT/DELETE /api/users</span><br><span class="line"><span class="bullet">-</span> 分页与过滤（用户名/邮箱/状态）</span><br><span class="line"><span class="bullet">-</span> 数据校验（class-validator），错误码与消息统一</span><br><span class="line"><span class="bullet">-</span> 输出 docker-compose.yml（PostgreSQL）</span><br></pre></td></tr></table></div></figure>
+
+<hr>
+
+        <h2 id="8-团队落地建议"   >
+          <a href="#8-团队落地建议" class="heading-link"><i class="fas fa-link"></i></a><a href="#8-团队落地建议" class="headerlink" title="8) 团队落地建议"></a>8) 团队落地建议</h2>
+      <ul>
+<li>设计侧：沉淀 Figma 组件库与命名规范</li>
+<li>前端侧：建立 v0 生成代码“落库规范”（目录、样式、测试）</li>
+<li>后端侧：模板化脚手架（鉴权、日志、异常、规范响应）</li>
+<li>工程侧：CI 校验（lint&#x2F;test&#x2F;build），Preview 环境自动部署</li>
+<li>文档侧：将 Prompt、约定、最佳实践纳入团队手册</li>
+</ul>
+<hr>
+
+        <h2 id="9-总结"   >
+          <a href="#9-总结" class="heading-link"><i class="fas fa-link"></i></a><a href="#9-总结" class="headerlink" title="9) 总结"></a>9) 总结</h2>
+      <ul>
+<li>用对三件事：结构化设计（Figma MCP）、高质量前端生成（v0）、具备上下文与工程化的 IDE（Cursor）</li>
+<li>不是“零成本”，而是“把时间花在对的地方”：设计规范、领域建模、约束与验收</li>
+<li>从第一个 MVP 开始，持续模板化与复用，你的开发效率会持续指数级上升</li>
+</ul>
+<hr>
+
+        <h3 id="参考与延伸阅读"   >
+          <a href="#参考与延伸阅读" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考与延伸阅读" class="headerlink" title="参考与延伸阅读"></a>参考与延伸阅读</h3>
+      <ul>
+<li>本站相关：<ul>
+<li>2025-11-08《Figma + v0 + Cursor：从设计稿到全栈应用的自动化开发革命》</li>
+<li>2025-11-07《Cursor × Figma：后端接口开发实战》</li>
+</ul>
+</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xuzhengqiang.github.io">大先生</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xuzhengqiang.github.io/2025/11/07/figma-mcp-v0-cursor-%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/">https://xuzhengqiang.github.io/2025/11/07/figma-mcp-v0-cursor-%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://xuzhengqiang.github.io/tags/Figma/">Figma</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://xuzhengqiang.github.io/tags/Figma-MCP/">Figma MCP</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://xuzhengqiang.github.io/tags/v0/">v0</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://xuzhengqiang.github.io/tags/Cursor/">Cursor</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://xuzhengqiang.github.io/tags/AI-%E7%BC%96%E7%A8%8B/">AI 编程</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://xuzhengqiang.github.io/tags/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91/">全栈开发</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2025/11/06/jeepay-%E8%81%9A%E5%90%88%E6%94%AF%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/"><span class="paginator-prev__text">JeePay 聚合支付系统深度解析：从架构到落地的完整指南（2025）</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E6%95%B4%E4%BD%93%E6%96%B9%E6%A1%88%E9%80%9F%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">
+          🔧 整体方案速览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87%EF%BC%8810-%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">
+          1) 前置准备（10 分钟）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE-Figma-MCP%EF%BC%882-%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">
+          2) 配置 Figma MCP（2 分钟）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%94%A8-v0-%E7%94%9F%E6%88%90%E5%89%8D%E7%AB%AF%EF%BC%888-%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">
+          3) 用 v0 生成前端（8 分钟）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%94%A8-Cursor-%E7%94%9F%E6%88%90-%E8%A1%A5%E5%85%A8%E5%90%8E%E7%AB%AF%EF%BC%8810-%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">
+          4) 用 Cursor 生成&#x2F;补全后端（10 分钟）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-NestJS-%E7%89%88%E6%9C%AC%EF%BC%88Node%EF%BC%89"><span class="toc-number">5.1.</span> <span class="toc-text">
+          A. NestJS 版本（Node）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Spring-Boot-%E7%89%88%E6%9C%AC%EF%BC%88Java%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">
+          B. Spring Boot 版本（Java）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%89%8D%E5%90%8E%E7%AB%AF%E8%81%94%E8%B0%83%E4%B8%8E%E9%AA%8C%E8%AF%81%EF%BC%885-%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">
+          5) 前后端联调与验证（5 分钟）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%B8%B8%E8%A7%81%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%EF%BC%88%E5%BC%BA%E7%83%88%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F%EF%BC%89"><span class="toc-number">7.</span> <span class="toc-text">
+          6) 常见坑与解决（强烈建议收藏）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Prompt-%E6%A8%A1%E6%9D%BF%EF%BC%88%E6%8B%BF%E5%8E%BB%E5%8D%B3%E7%94%A8%EF%BC%89"><span class="toc-number">8.</span> <span class="toc-text">
+          7) Prompt 模板（拿去即用）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v0-%E7%94%9F%E6%88%90%E9%A1%B5%E9%9D%A2"><span class="toc-number">8.1.</span> <span class="toc-text">
+          v0 生成页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cursor-Figma-MCP-%E7%94%9F%E6%88%90%E5%90%8E%E7%AB%AF%EF%BC%88NestJS%EF%BC%89"><span class="toc-number">8.2.</span> <span class="toc-text">
+          Cursor + Figma MCP 生成后端（NestJS）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%9B%A2%E9%98%9F%E8%90%BD%E5%9C%B0%E5%BB%BA%E8%AE%AE"><span class="toc-number">9.</span> <span class="toc-text">
+          8) 团队落地建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E6%80%BB%E7%BB%93"><span class="toc-number">10.</span> <span class="toc-text">
+          9) 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%B8%8E%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB"><span class="toc-number">10.1.</span> <span class="toc-text">
+          参考与延伸阅读</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">Hello Stun</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">6</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">29</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>大先生</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.8.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.8.0"></script><script src="/js/stun-boot.js?v=2.8.0"></script><script src="/js/scroll.js?v=2.8.0"></script><script src="/js/header.js?v=2.8.0"></script><script src="/js/sidebar.js?v=2.8.0"></script></body></html>
